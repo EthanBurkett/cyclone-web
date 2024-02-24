@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  html {
+    text-rendering: optimizeLegibility;
+  }
+  .button-gradient {
+    @apply bg-gradient-to-br from-brand-400 to-brand-500 shadow-[1px_2px_15px] shadow-brand-400;
+  }
+}

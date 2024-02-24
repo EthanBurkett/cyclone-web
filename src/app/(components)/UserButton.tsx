@@ -2,6 +2,15 @@
 import { User } from "@/models/User.model";
 import React, { useState } from "react";
 import Image from "next/image";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { IoLogOut } from "react-icons/io5";
+import Link from "next/link";
 
 type Props = {
   avatarURL: string;
@@ -10,12 +19,26 @@ type Props = {
 const UserButton = ({ avatarURL }: Props) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col justify-end">
-      <div className="w-12 h-12 rounded-full overflow-hidden cursor-pointer">
-        <Image src={avatarURL} alt="profile image" width={64} height={64} />
-      </div>
-      <div className="w-56 h-14 bg-red-500"></div>
-    </div>
+    <NavigationMenu>
+      <NavigationMenuList className="flex flex-col rounded-full relative justify-start">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="w-12 h-12 flex justify-center items-center rounded-full p-0 overflow-hidden">
+            <Image src={avatarURL} alt="profile image" width={48} height={48} />
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className="bg-main text-white">
+            <Link href="/logout">
+              <div className="px-3 py-2 flex flex-row gap-2 justify-center items-center cursor-pointer transition-all hover:bg-primary hover:text-black group">
+                <IoLogOut
+                  className="text-white group-hover:text-black transition-all"
+                  size={16}
+                />
+                Logout
+              </div>
+            </Link>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 

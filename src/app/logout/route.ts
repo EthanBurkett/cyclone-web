@@ -1,7 +1,9 @@
 import { getUser } from "@/actions";
 import { lucia, validateRequest } from "@/auth";
 import UserModel from "@/models/User.model";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function GET(request: Request): Promise<Response> {
   cookies().delete("discord_oauth_state");
@@ -23,10 +25,5 @@ export async function GET(request: Request): Promise<Response> {
   cookies().delete(lucia.sessionCookieName);
   lucia.invalidateSession(session?.id!);
 
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: "/",
-    },
-  });
+  return redirect("/");
 }
